@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SpreeGateway
   module Generators
     class InstallGenerator < Rails::Generators::Base
@@ -8,11 +10,11 @@ module SpreeGateway
       end
 
       def run_migrations
-       if options[:migrate]
-         run 'bundle exec rake db:migrate VERBOSE=false'
-       else
-         puts "Skiping rake db:migrate, don't forget to run it!"
-       end
+        if options[:migrate]
+          run 'bundle exec rake db:migrate VERBOSE=false'
+        else
+          Rails.logger.debug "Skiping rake db:migrate, don't forget to run it!"
+        end
       end
     end
   end

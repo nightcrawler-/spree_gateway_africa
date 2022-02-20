@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
 class OrderWalkthrough
   def self.up_to(state)
     # A default store must exist to provide store settings
     store = Spree::Store.default || FactoryBot.create(:store, default: true)
 
     # A payment method must exist for an order to proceed through the Address state
-    unless Spree::PaymentMethod.exists?
-      FactoryBot.create(:check_payment_method)
-    end
+    FactoryBot.create(:check_payment_method) unless Spree::PaymentMethod.exists?
 
     # Need to create a valid zone too...
     zone = FactoryBot.create(:zone)
@@ -34,8 +34,6 @@ class OrderWalkthrough
 
     order
   end
-
-  private
 
   def self.add_line_item!(order)
     FactoryBot.create(:line_item, order: order)
@@ -68,6 +66,6 @@ class OrderWalkthrough
   end
 
   def self.states
-    [:address, :delivery, :payment, :complete]
+    %i[address delivery payment complete]
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SpreeGateway
   module OrderDecorator
     def self.prepended(base)
@@ -20,7 +22,9 @@ module SpreeGateway
     end
 
     def intents?
-      payments.valid.map { |p| p.payment_method&.has_preference?(:intents) && p.payment_method&.get_preference(:intents) }.any?
+      payments.valid.map do |p|
+        p.payment_method&.has_preference?(:intents) && p.payment_method&.get_preference(:intents)
+      end.any?
     end
   end
 end

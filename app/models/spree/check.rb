@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module Spree
   class Check < Spree::Base
-
     attr_accessor :imported
 
     belongs_to :payment_method
-    belongs_to :user, class_name: Spree.user_class.to_s, foreign_key: 'user_id',
-               optional: true
+    belongs_to :user, class_name: Spree.user_class.to_s,
+                      optional: true
     has_many :payments, as: :source
 
     scope :with_payment_profile, -> { where.not(gateway_customer_profile_id: nil) }
@@ -35,7 +36,7 @@ module Spree
     # Indicates whether its possible to credit the payment.  Note that most gateways require that the
     # payment be settled first which generally happens within 12-24 hours of the transaction.
     def can_credit?(payment)
-      payment.completed? && payment.credit_allowed > 0
+      payment.completed? && payment.credit_allowed.positive?
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :check, class: Spree::Check do
     account_holder_name { 'John Doe' }
