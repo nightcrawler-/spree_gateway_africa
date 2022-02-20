@@ -1,0 +1,19 @@
+<fieldset data-hook="credit_card">
+    <legend>FLutterwave Request</legend>
+    <div class="table-responsive border rounded bg-white">
+      <table class="table table-condensed border rounded">
+        <tr>
+          <th width="20%">Please follow this link to enter OTP if you haven't:</th>
+          <td><a target="_blank" href= <%= payment.log_entries.last.parsed_details.params["link"]%> ><%= payment.log_entries.last.parsed_details.params['link']%></a></td>
+        </tr>
+        <tr>
+          <th>Raw:</th>
+          <td><%= payment.log_entries.last.parsed_details.inspect %></td>
+        </tr>
+        <tr>
+          <th>Source:</th>
+          <td><%= payment.source.inspect %></td>
+        </tr>
+      </table>
+    </div>
+  </fieldset>
