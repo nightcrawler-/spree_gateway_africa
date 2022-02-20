@@ -17,7 +17,7 @@ For`PayPal` support head over to [braintree_vzero](https://github.com/spree-cont
 1. Add this extension to your Gemfile with this line:
 
     ```ruby
-    gem 'spree_gateway', github: 'nightcrawler-/spree_gateway', branch: 'develop'
+    gem 'spree_gateway', github: 'nightcrawler-/spree_gateway_africa', branch: 'main'
 
     ```
 
