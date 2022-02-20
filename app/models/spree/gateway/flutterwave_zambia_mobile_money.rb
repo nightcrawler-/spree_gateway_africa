@@ -38,13 +38,14 @@ module Spree
       def do_rave_zambia_things(options, amount, transaction_details)
           @rave = RaveRuby.new(preferences[:public_key], preferences[:secret_key], true)
 
+          # TODO:: phonenumber: get from tx details -> billing -> shipping -> user in that order
           # This is used to perform zambia mobile money charge
           payload = {
             "amount" => (amount / 100).to_i.to_s,
             "phonenumber" => transaction_details.payment_instrument_number,
             "firstname" => "Sam", #transaction_details.name.split(' ')[0],
             "lastname" => "Wilson", #transaction_details.name.split(' ')[1],
-            "network" => "MTN",
+            "network" => MobileNetworkService.new(transaction_details.payment_instrument_number).call,
             "email" => options[:email],
             "IP" => ip_address,
             "redirect_url" => "https://webhook.site/40eb91be-8eda-406b-85f9-881758cbe263",
@@ -70,7 +71,7 @@ module Spree
           print response.inspect + "\n#############\n"
   
           # Don't set a success result yet. 
-          ActiveMerchant::Billing::Response.new(!response["error"], response["status"], response, {})
+          ActiveMerchant::Billing::Response.new(!response["error"], response["status"], response.merge!(payload), {})
       end
 
       def ip_address 
