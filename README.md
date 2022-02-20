@@ -7,7 +7,8 @@ Forked from Community supported Spree Payment Method Gateways. It works as a wra
 [active_merchant](https://github.com/activemerchant/active_merchant) gateway. 
 
 Supported payment gateways:
-* Flutterwave
+* Flutterwave::Zambia Mobile Money
+* Flutterwave::MPESA
 
 For`PayPal` support head over to [braintree_vzero](https://github.com/spree-contrib/spree_braintree_vzero) extension.
 
