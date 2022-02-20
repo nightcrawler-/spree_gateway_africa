@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Api V2 Storefront Intents Spec', type: :request do
@@ -33,7 +35,7 @@ describe 'Api V2 Storefront Intents Spec', type: :request do
           gateway.set_preference :intents, 'true'
           gateway.name = 'Stripe Elements'
           gateway.stores << order.store
-          allow(gateway).to receive(:options_for_purchase_or_auth).and_return ['money','cc','opts']
+          allow(gateway).to receive(:options_for_purchase_or_auth).and_return %w[money cc opts]
           allow(gateway).to receive_messages provider: provider
           allow(gateway).to receive_messages source_required: true
           allow(gateway).to receive_messages create_profile: true
@@ -114,7 +116,7 @@ describe 'Api V2 Storefront Intents Spec', type: :request do
       gateway.set_preference :intents, 'true'
       gateway.name = 'Stripe Elements'
       gateway.stores << order.store
-      allow(gateway).to receive(:options_for_purchase_or_auth).and_return ['money','cc','opts']
+      allow(gateway).to receive(:options_for_purchase_or_auth).and_return %w[money cc opts]
       allow(gateway).to receive_messages provider: provider
       allow(gateway).to receive_messages source_required: true
       allow(gateway).to receive_messages create_profile: true
