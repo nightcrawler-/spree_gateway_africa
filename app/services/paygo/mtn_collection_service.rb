@@ -14,13 +14,13 @@ module Paygo
       'https://dss-gw-loadbal-uat01.digitalpaygo.com:9906/ServiceLayer/request/postRequest'
     end
 
-    def initialize(username, password, service_id, client_id, **args)
+    def initialize(username, password, service_id, client_id, body)
       @username = username
       @password = password
       @client_id = client_id
       @service_id = service_id
 
-      @body = args
+      @body = body
     end
 
     def call
@@ -29,7 +29,9 @@ module Paygo
                                clientid: @client_id,
                                serviceid: @service_id })
 
-      Rails.logger.debug "PayGo MTN Collection Payload: #{payload}"
+      puts "PayGo MTN Collection Payload: #{payload}"
+
+      post_data(payload)
     end
 
     private
@@ -41,13 +43,14 @@ module Paygo
       https.use_ssl = true
 
       request = Net::HTTP::Post.new(url)
-      request['Authorization'] = bearer
       request['Content-Type'] = 'application/json'
       request.body = payload.to_json
 
-      Rails.logger.debug "Payload: #{payload.to_json}"
+      puts "Payload: #{payload.to_json}"
       response = https.request(request)
-      Rails.logger.debug "Completed sending Online Payment Request, code: #{response.code}"
+      puts"Completed sending Online Payment Request, code: #{response.code}"
+      puts"Completed sending Online Payment Request, body: #{response.body}"
+
       OpenStruct.new({ success?: response.code.eql?('200'), payload: JSON.parse(response.body) })
     end
   end
