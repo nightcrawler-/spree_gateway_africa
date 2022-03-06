@@ -1,0 +1,22 @@
+<p>
+    Paygo Payment Request. The fields below will be used to create a payment, but later on the payment will be created from the billing address information.
+    </p>
+    
+    <fieldset data-id="credit-card">
+       
+          <div id="card_form<%= payment_method.id %>" class="mt-3 row" data-hook>
+            <% param_prefix = "payment_source[#{payment_method.id}]" %>
+        
+            <div data-hook="card_number" class="form-group col-12">
+              <%= hidden_field_tag "#{param_prefix}[cc_type]", '', {class: 'ccType'} %>
+              <%= label_tag "phone_number#{payment_method.id}", raw(Spree.t(:phone_number) + required_span_tag) %>
+              <%= text_field_tag "#{param_prefix}[payment_instrument_number]", '', class: 'required form-control phoneNumber', id: "phone_number#{payment_method.id}", maxlength: 19 %>
+            </div>
+        
+            <div data-hook="card_name" class="form-group col-12">
+              <%= label_tag "name#{payment_method.id}", raw('Account No') + required_span_tag) %>
+              <%= text_field_tag "#{param_prefix}[account_no]", '', id: "name#{payment_method.id}", class: 'required form-control', maxlength: 19 %>
+            </div>
+        
+          </div>
+        </fieldset>

@@ -48,8 +48,7 @@ module Paygo
 
       puts "Payload: #{payload.to_json}"
       response = https.request(request)
-      puts"Completed sending Online Payment Request, code: #{response.code}"
-      puts"Completed sending Online Payment Request, body: #{response.body}"
+      puts "Completed sending Online Payment Request\ncode: #{response.code}\nbody: #{response.body}"
 
       OpenStruct.new({ success?: response.code.eql?('200'), payload: JSON.parse(response.body) })
     end
